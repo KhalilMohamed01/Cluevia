@@ -1,18 +1,20 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const token = request.cookies.get('jwt'); // Get the JWT token from cookies
+    const cookieStore = await cookies(); // ← await here
+    const token = cookieStore.get('jwt')?.value;
+
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Send request to the backend to verify the token and get user info
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Pass the JWT token in the header
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -20,8 +22,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const data: { username: string, avatarUrl: string } = await res.json(); // Type the response
-    return NextResponse.json(data); // Send user data to the frontend
+    const data: { username: string; avatarUrl: string } = await res.json();
+    return NextResponse.json(data);
 
   } catch (error) {
     console.error('Error in /api/auth/me:', error);
