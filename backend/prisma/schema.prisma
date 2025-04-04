@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  discordId     String   @unique
+  username      String
+  avatarUrl     String?
+  hostedParties Party[]
+  createdAt     DateTime @default(now())
+}
+
+model Party {
+  id        Int      @id @default(autoincrement())
+  hostId    Int
+  host      User     @relation(fields: [hostId], references: [id])
+  joinCode  String   @unique
+  createdAt DateTime @default(now())
+}

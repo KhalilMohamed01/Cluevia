@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --night: #101114;
+  --eerie-black: #1C1F20;
+  --verdigris: #02A8B0;
+  --crimson: #D21D37;
+  --fulvous: #DE8311;
+  --chrysler-blue: #5E19CE;
+  --isabelline: #F7F4EE;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--night);
+  color: var(--isabelline);
+  font-family: var(--font-orbitron);
+}
+
+.btn {
+  @apply px-6 py-2 rounded font-semibold transition-colors duration-200;
+}
+
+.btn-primary {
+  background-color: var(--verdigris);
+  color: var(--isabelline);
+}
+
+.btn-secondary {
+  background-color: var(--chrysler-blue);
+  color: var(--isabelline);
+}
+
+.btn-danger {
+  background-color: var(--crimson);
+  color: var(--isabelline);
+}
+
+.card {
+  background-color: var(--eerie-black);
+  @apply rounded-lg p-6;
+}
+
+/* Add these new classes for card flipping */
+.card-flip {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-revealed .card-inner {
+  transform: rotateY(180deg);
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.glass-card {
+  background: rgba(28, 31, 32, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  border: 1px solid rgba(247, 244, 238, 0.1);
+}
+
+.glass-input {
+  background: rgba(16, 17, 20, 0.6);
+  border: 1px solid rgba(2, 168, 176, 0.3);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--isabelline);
+  transition: all 0.2s;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--verdigris);
+  box-shadow: 0 0 0 2px rgba(2, 168, 176, 0.2);
+}
+
+.glow-button-primary {
+  background: var(--verdigris);
+  color: var(--isabelline);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.glow-button-primary:hover {
+  box-shadow: 0 0 20px rgba(2, 168, 176, 0.5);
+  transform: translateY(-1px);
+}
+
+.glow-button-secondary {
+  background: var(--chrysler-blue);
+  color: var(--isabelline);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.glow-button-secondary:hover {
+  box-shadow: 0 0 20px rgba(94, 25, 206, 0.5);
+  transform: translateY(-1px);
+}
+
+.glow-button-discord {
+  background: #5865F2;
+  color: var(--isabelline);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.glow-button-discord:hover {
+  box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
+  transform: translateY(-1px);
+}
+
+.glow-button-danger {
+  background: rgba(210, 29, 55, 0.1);
+  color: var(--isabelline);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.glow-button-danger:hover {
+  background: var(--crimson);
+  box-shadow: 0 0 20px rgba(210, 29, 55, 0.3);
+  transform: translateY(-1px);
+}
+
+.typing-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--verdigris);
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  margin: 0 auto;
+  max-width: fit-content;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--verdigris) }
+}
+
+/* Remove these classes as we'll use default font */
+.title-text {
+  font-weight: 700;
+}
+
+.slogan-text {
+  font-weight: 400;
+  color: var(--isabelline);
+  opacity: 0.9;
+  letter-spacing: 0.05em;
+}
+
+.profile-container {
+  background: linear-gradient(45deg, rgba(2, 168, 176, 0.1), rgba(94, 25, 206, 0.1));
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(2, 168, 176, 0.2);
+}
+
+.avatar-container {
+  position: relative;
+  padding: 2px;
+  background: linear-gradient(45deg, var(--verdigris), var(--chrysler-blue));
+  border-radius: 12px;
+}
+
+/* Remove these classes as we'll use default font */
+.username-text {
+  font-weight: 500;
+  color: var(--isabelline);
+  text-shadow: 0 0 20px rgba(2, 168, 176, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.icon-button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.icon-button:hover {
+  opacity: 1;
+  background: rgba(210, 29, 55, 0.2);
+  color: var(--crimson);
+}
+
+/* Add styles for lucky card icon */
+.lucky-card-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #10B981;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  pointer-events: none;
+  z-index: 10;
+}
