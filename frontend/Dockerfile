@@ -1,4 +1,3 @@
-# Use Node.js
 FROM node:20
 
 WORKDIR /app
@@ -8,5 +7,10 @@ RUN npm install
 
 COPY . .
 
+# Build the app
+RUN npm run build
+
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+
+# Use production server
+CMD ["npm", "start"]
